@@ -31,6 +31,7 @@ import Pagination from '../Pagination'
 
 import "./Component1.css"
 const Component1 = () => {
+  const[search,setSearch]=useState()
   const [data,setData]=useState([])
   const[perpage,setPerpage]=useState([])
   // const navigate=useNavigation()
@@ -43,12 +44,17 @@ const Component1 = () => {
   }
   return (
     <div >
+      <div>
+        <h3>Search by entering bodyType(suv||sedan||estate)here:</h3>
+        <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+        
+      </div>
      {data.length>=1?
      <div className='inner'>
 {console.log(data)}
 {/* {perpage.map(data=><div className='post'>{data}</div>)} */}
 
-{perpage.map((item)=>{
+{perpage.filter(item=>item.bodyType.includes(search)).map((item)=>{
   return <div key={item.id} className='box'>
                  <p>{item.bodyType}</p>
                  <div className='paramain'>
@@ -56,6 +62,7 @@ const Component1 = () => {
                <p className='modal-para1'>{item.modelType}</p>
                </div>
                <img src={item.imageUrl}/><br/>
+              
                <div className='bottom'>
             
           <a href="/post"><p>LEARN</p></a>
